@@ -8,25 +8,65 @@ import java.util.logging.Logger;
 import java.util.Scanner;
 
 public class Employee {
+    int deptId;
+    String ename;
+    int ctc;
+    String date;
+    int age;
+    String pwd;
+
     public void createEmployee() {
 
         String url = "jdbc:mysql://localhost:3306/empdb?useSSL=false";
         String user = "root";
         String password = "root";
         Scanner sc = new Scanner(System.in);
+        String id = "SELECT Id From Department ";
+
         System.out.println("enter employee details");
         System.out.println("enter dept ID");
-        int deptId = sc.nextInt();
+        if (sc.hasNextInt() && sc.equals(id)) {
+            deptId = sc.nextInt();
+        } else {
+            System.out.println("enter valid Id");
+        }
+
         System.out.println("enter employee name");
-        String ename = sc.next();
+        if (sc.hasNext("[A-Za-z]*")) {
+            ename = sc.next();
+        } else {
+            System.out.println("Please Enter a Valid Value");
+        }
+
         System.out.println("enter employee CTC");
-        int ctc = sc.nextInt();
+        if (sc.hasNextInt()) {
+            ctc = sc.nextInt();
+        } else {
+            System.out.println("enter valid CTC");
+        }
         System.out.println("enter employee joining date in YYYY/MM/DD format");
-        String date = sc.next();
+        if (sc.hasNext("[A-Za-z]*")) {
+            date = sc.next();
+        } else {
+            System.out.println("Please Enter a Valid Value");
+        }
+
         System.out.println("enter employee age");
-        int age = sc.nextInt();
+        if (sc.hasNextInt()) {
+            age = sc.nextInt();
+        } else {
+            System.out.println("enter valid age");
+        }
+
         System.out.println("enter employee password");
-        String pwd = sc.next();
+
+        if (sc.hasNext("[A-Za-z]*")) {
+            pwd = sc.next();
+        } else {
+            System.out.println("Please Enter a Valid Value");
+        }
+
+
         String sql = "INSERT INTO employee(deptId,Name,ctc,joidate,age,password) VALUES(?,?,?,?,?,?)";
 
         try (Connection con = DriverManager.getConnection(url, user, password);
@@ -50,3 +90,4 @@ public class Employee {
         }
     }
 }
+
